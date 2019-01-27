@@ -797,5 +797,50 @@ client.on('message', message => {
     }
 });
 
+const hero = new Discord.Client({disableEveryone: true, maxMessagesCache: 1});
+const as = require('array-sort');
+const config = { prefix: "^", token: "NTM5MDkyNDM4Mzg0NTA4OTI4.Dy-0jQ.I9f6KbCM_b2_RdQK4WGTIfEp6Io" };
+const tpoints = {};
+const vpoints = {};
+hero.config = config;
+hero.login(hero.config.token);
+hero.on('ready',async () => {
+  hero.users.forEach(m => {
+    if(m.bot) return;
+    if(!tpoints[m.id]) tpoints[m.id] = {points: 0, id: m.id};
+ 
+    if(!vpoints[m.id]) vpoints[m.id] = {points: 0, id: m.id};
+  });
+});
+ 
+hero.on('message',async message => {
+  if(message.author.bot || message.channel.type === 'dm') return;
+  let args = message.content.split(' ');
+  let member = message.member;
+  let mention = message.mentions.users.first();
+  let guild = message.guild;
+  let author = message.author;
+ 
+  let rPoints = Math.floor(Math.random() * 4) + 1;// Random Points
+  tpoints[author.id].points += rPoints;
+  if(args[0] === `${hero.config.prefix}top`) {
+    let _voicePointer = 1;
+    let _textPointer = 1;
+    let _voiceArray = Object.values(vpoints);
+    let _textArray = Object.values(tpoints);
+    let _topText = as(_textArray, 'points', { reverse: true });
+    let _topVoice = as(_voiceArray, 'points', { reverse: true });;
+    let topRoyale = new Discord.RichEmbed();
+    topRoyale.setAuthor(message.author.username, message.author.avatarURL);
+    topRoyale.setTitle('^ " top');
+    //topRoyale.setThumbnail(message.guild.iconURL);
+    topRoyale.addField(`**TOP 5 TEXT 💬**`, _topText.map(r => `**\`.${_textPointer++}\` | <@${r.id}> \`XP: ${r.points}\`**`).slice(0, 5), true);
+    topRoyale.addField(`**TOP 5 VOICE 🎙**`, _topVoice.map(r => `**\`.${_voicePointer++}\` | <@${r.id}> \`XP: ${r.points}\`**`).slice(0, 5), true);
+    message.channel.send(topRoyale).catch(e => {
+      if(e) return message.channel.send(`**. Error; \`${e.message}\`**`);
+    });
+  }
+});
+
 
 client.login(process.env.BOT_TOKEN);
