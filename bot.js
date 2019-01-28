@@ -979,4 +979,42 @@ client.on('message', message => {
 });
 
 
+client.on("message", message => {
+    if (message.content === `${prefix}help`) {
+  const embed = new Discord.RichEmbed()
+      .setColor("#111111")
+      .setDescription(`
+**
+^bc 
+^user
+^avatar
+^bcc 
+^kick 
+inviteserver  
+^cm 
+^om  
+^mute  
+^unmute 
+^clear + Number
+^hide
+^unhide
+^date
+^unbanall 
+^ban 
+^app 
+^gstart 
+^server 
+^rules 
+^new  
+^close  
+^top 
+^bot
+**
+ `)
+   message.channel.sendEmbed(embed)
+   
+   }
+   });
+
+
 client.login(process.env.BOT_TOKEN);
