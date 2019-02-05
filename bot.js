@@ -6,7 +6,7 @@ const prefix = '^'
  
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
-client.user.setGame(`Nasa`,"https://www.twitch.tv/dggamingbot")
+client.user.setGame(`RP`,"https://www.twitch.tv/dggamingbot")
   console.log('')
   console.log('')
   console.log('╔[═════════════════════════════════════════════════════════════════]╗')
@@ -208,8 +208,7 @@ client.on('message', message => {
 
 
 client.on('message', message => {
-    if(message.content.includes('discord.gg')){
-                                            if(!message.channel.guild) return message.reply('** advertising me on DM ?    **');
+    if(message.content.includes('discord.gg')){                                       
         if (!message.member.hasPermissions(['ADMINISTRATOR'])){
         message.delete()
     return message.reply(`** No Invite Links  !**`)
@@ -972,7 +971,7 @@ client.on('message', message => {
             .addField('**Channels**📝 :' , `[ ${client.channels.size} ]` , true)
             .addField('**Users**🔮 :' ,`[ ${client.users.size} ]` , true)
             .addField('**Bot Name**🔰 :' , `[ ${client.user.tag} ]` , true)
-            .addField('**Bot Owner**👑 :' , `[<@520347455792087040>]` , true)
+            .addField('**Bot Owner**👑 :' , `[<@324108129698709514>]` , true)
             .setFooter(message.author.username, message.author.avatarURL)
     })
 }
